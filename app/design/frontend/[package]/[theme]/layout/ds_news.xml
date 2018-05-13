@@ -1,0 +1,22 @@
+<?xml version="1.0" ?>
+<layout>
+    <dsnews_index_index>
+
+        <!--
+        <reference name="content">
+            <block type="core/template" template="ds_news/index.phtml" />
+        </reference>
+        -->
+
+        <!--
+
+        <reference name="content">
+            <block type="dsnews/news" temlate="ds_news/index.phtml" />
+        </reference>
+        <reference name="content">
+            <block type="dsnews/view" name="news.content" temlate="ds_news/view.phtml" />
+        </reference>
+        -->
+
+    </dsnews_index_index>
+</layout>

@@ -1,0 +1,12 @@
+<?xml version="1.0"?>
+<config>
+	<modules>
+		<Pittarosso_ShipmentForm>
+			<codePool>local</codePool>
+			<active>true</active>
+			<depends>
+				<Tbuy_CustomerCare />
+			</depends>
+		</Pittarosso_ShipmentForm>
+	</modules>
+</config>

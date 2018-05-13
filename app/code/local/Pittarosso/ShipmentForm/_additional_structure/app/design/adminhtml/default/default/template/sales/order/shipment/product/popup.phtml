@@ -1,0 +1,76 @@
+<?php /** @var Pittarosso_ShipmentForm_Block_Adminhtml_Sales_Order_ProductSku $this */ ?>
+<script type="text/javascript">
+//<![CDATA[
+document.observe("dom:loaded", function() {
+    productSku = new ProductSku({
+        confirmCallback: function () {
+            var insertedSku = jQuery('#skus').val().match(/[\S,;]+/g);
+            var insertedSkuStr = '';
+            if (insertedSku) {
+                insertedSkuStr = insertedSku.sort().toString();
+            }
+
+            var $container = jQuery(this.options.btn).closest('#ship_items_container');
+            var $shipmentConfirmation = $container.find('[name="shipment_confirmation"]');
+
+            if (!$shipmentConfirmation.size()) {
+                $container.append('<input type="hidden" name="shipment_confirmation">');
+                $shipmentConfirmation = $container.find('[name="shipment_confirmation"]');
+            }
+
+            $shipmentConfirmation.val(insertedSkuStr);
+
+            submitShipment(this.options.btn);
+        }
+    });
+});
+jQuery(document).ready(function () {
+    var skuStr = JSON.parse('<?php echo json_encode($this->getOrderSku()); ?>').sort().toString();
+    var $submitButton = jQuery('#shipping_submit_button');
+
+    jQuery('#skus').keyup(function () {
+        var insertedSku = jQuery(this).val().match(/[\S,;]+/g);
+
+        var insertedSkuStr = '';
+        if (insertedSku) {
+            insertedSkuStr = insertedSku.sort().toString();
+        }
+
+        var disabled = skuStr !== insertedSkuStr;
+        $submitButton.prop('disabled', disabled);
+        if (disabled) {
+            $submitButton.addClass('disabled');
+        } else {
+            $submitButton.removeClass('disabled');
+        }
+    });
+});
+
+function showShipmentSku(btn) {
+    productSku.showWindow({
+        btn: btn
+    });
+}
+//]]>
+</script>
+<div id="popup-window-mask" style="display:none;"></div>
+<div id="product_sku_window" class="packaging-window" style="display:none;">
+    <div class="entry-edit">
+        <div class="entry-edit-head">
+            <h4 class="icon-head fieldset-legend"><?php echo Mage::helper('pittarosso_shipmentform')->__('Shipment Confirmation') ?></h4>
+        </div>
+        <div class="packaging-content">
+            <div id="packages_content">
+                <textarea name="skus" id="skus" style="width: 100%; height: 200px"><?php echo $this->escapeHtml($this->getSkuValues()) ?></textarea>
+            </div>
+        </div>
+        <div class="buttons-set a-right">
+            <button type="button" id="shipping_submit_button" class="scalable disabled SavePackagesBtn" disabled="disabled" onclick="productSku.confirm();" title="<?php echo Mage::helper('pittarosso_shipmentform')->__('Submit Shipment')?>">
+                <span><span><span><?php echo Mage::helper('sales')->__('OK') ?></span></span></span>
+            </button>
+            <button type="button" class="scalable" onclick="productSku.cancel();">
+                <span><span><span><?php echo Mage::helper('sales')->__('Cancel') ?></span></span></span>
+            </button>
+        </div>
+    </div>
+</div>

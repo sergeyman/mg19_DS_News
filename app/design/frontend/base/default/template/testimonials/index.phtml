@@ -1,0 +1,73 @@
+<?php
+    /** @var  ESAV_Testimonials_Block_Index  $this */
+?>
+<?php
+    $testimonialsModel = Mage::getModel('testimonials/testimonials');
+?>
+<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
+
+<form action="<?php echo $this->getSaveUrl(); ?>" id="testimonialsForm" method="post">
+    <div class="fieldset">
+        <ul class="form-list">
+            <li class="fields">
+                <h2 class="legend"><?php echo $this->__('Add testimonial!') ?></h2>
+                <div class="field">
+                    <label for="testimonial" class="required"><em>*</em><?php echo $this->__('Testimonial') ?></label>
+                    <div class="input-box">
+                        <textarea name="testimonial" id="testimonial" title="<?php echo $this->__('Testimonial') ?>" class="required-entry input-text" cols="5" rows="3"></textarea>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+    <div class="buttons-set">
+        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
+        <button type="submit" title="<?php echo $this->__('Submit') ?>" class="button"><span><span><?php echo $this->__('Submit') ?></span></span></button>
+    </div>
+    <script type="text/javascript">
+        //<![CDATA[
+        var contactForm = new VarienForm('testimonialsForm', true);
+        //]]>
+    </script>
+</form>
+
+<?php $collection = $this->getCollection(); ?>
+    <div class="page-title">
+        <h1><?php echo $this->__('Testimonials') ?></h1>
+    </div>
+<?php echo $this->getPagerHtml(); ?>
+<?php if($collection->getSize()): ?>
+    <table class="data-table" id="my-custom-table">
+        <col width="1" />
+        <col width="1" />
+        <col />
+        <col width="1" />
+        <col width="1" />
+        <col width="1" />
+        <thead>
+        <tr>
+            <th><?php echo $this->__('ID') ?></th>
+            <th><?php echo $this->__('User ID') ?></th>
+            <th><span class="nobr"><?php echo $this->__('Testimonial') ?></span></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php $_odd = ''; ?>
+        <?php foreach ($collection as $_obj): ?>
+            <?php
+            /** @var ESAV_Testimonials_Model_Testimonials  $_obj */
+            //$_obj->getData();//testimonials_id  testimonial  user_id
+            ?>
+            <tr>
+                <td><?php echo $_obj->getTestimonialsId() ?></td>
+                <td><span class="nobr"><?php echo $_obj->getUserId(); ?></span></td>
+                <td><?php echo $_obj->getTestimonial(); ?></td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+    <script type="text/javascript">decorateTable('my-custom-table');</script>
+    <?php echo $this->getPagerHtml(); ?>
+<?php else: ?>
+    <p><?php echo $this->__('The collection is empty.'); ?></p>
+<?php endif ?>

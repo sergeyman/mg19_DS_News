@@ -1,0 +1,11 @@
+<?xml version="1.0"?>
+<layout>
+    <adminhtml_sales_order_shipment_new>
+        <reference name="head">
+            <action method="addJs"><file>pittarosso_shipmentform/adminhtml/product_sku.js</file></action>
+        </reference>
+        <reference name="before_body_end">
+            <block type="pittarosso_shipmentform/adminhtml_sales_order_productSku" name="shipment_productSku" template="sales/order/shipment/product/popup.phtml" />
+        </reference>
+    </adminhtml_sales_order_shipment_new>
+</layout>

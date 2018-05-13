@@ -1,0 +1,30 @@
+<h1>Tmplate ds_news/index.phtml</h1>
+
+
+<h1>News2 (from index.phtml)</h1>
+
+<?php
+/*
+$news = Mage::registry('news');
+foreach ($news as $item) {
+    echo '<h2>' . $item['title'] . '</h2>';
+}
+*/
+
+
+echo  get_class($this);
+$news = $this->getNewsCollection();
+//echo  get_class($this);
+//var_dump($news);
+//die();
+
+$newsViewUrl = Mage::getUrl('news/index/view');
+?>
+<h1>News4 (index.phtml Blocks (7)</h1>
+<?php foreach ($news as $item): ?>
+    <h2>
+        <a href="<?php echo $newsViewUrl; ?>?id=<?php echo $item->getId(); ?>">
+            <?php echo $item->getTitle(); ?>
+        </a>
+    </h2>
+<?php endforeach; ?>
