@@ -1,4 +1,4 @@
 app/code/core
-app/var
-app/media
+/var
+/media
 .idea
